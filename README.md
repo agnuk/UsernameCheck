@@ -135,44 +135,62 @@ Open a terminal on your server.
 Create a new service file for your Flask application. You can name it waitress.service:
 bash
 
-sudo nano /etc/systemd/system/flask-app.service
+"sudo nano /etc/systemd/system/waitress.service"
 
 Add the following configuration to the service file, adjusting paths and user as necessary:
 
 text
 
 [Unit]
-Description=Flask Application running with Waitress
+Description=Waitress Server for running Flask Application
 After=network.target
 
 [Service]
-User=your_username          # Replace with your actual username
+User=your_username          # Replace with your actual username (root in my case)
 Group=www-data              # You can change this if needed
-WorkingDirectory=/path/to/your/flask-app  # Adjust to your app's directory
+WorkingDirectory=/path/to/your/flask-app  # Adjust to your app's directory  (/root/flask-app)
 ExecStart=/path/to/your/venv/bin/waitress-serve --host=127.0.0.1 --port=8080 app:app  # Adjust the path to your virtual environment and app
+#(/root/flask-app/venv/bin/waitress-serve in my case)
 Restart=always               # Restart service if it crashes
 
 [Install]
 WantedBy=multi-user.target
+
+
+
+
 Step 2: Enable and Start the Service
 Reload systemd to recognize the new service:
 bash
-sudo systemctl daemon-reload
+
+"sudo systemctl daemon-reload"
+
 Enable the service to start on boot:
 bash
-sudo systemctl enable flask-app.service
+
+"sudo systemctl enable waitress.service"
+
 Start the service immediately:
 bash
-sudo systemctl start flask-app.service
+
+"sudo systemctl start waitress.service"
+
+
 Step 3: Check the Status of Your Service
 To verify that your service is running correctly, use:
+
 bash
-sudo systemctl status flask-app.service
+
+"sudo systemctl status waitress.service"
+
 This command will show you whether the service is active and running.
+
 Step 4: View Logs for Debugging (if necessary)
+
 If you encounter issues, you can check the logs for more information:
 bash
-journalctl -u flask-app.service -f
+
+"journalctl -u waitress.service -f"
 
 
 Usage
