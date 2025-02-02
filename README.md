@@ -6,13 +6,20 @@ The running version is availble at:
 
 https://usernamecheck.ru
 
+The official place to buy and sell Telegram usernames: https://fragment.com (where we check the availability of usernames)
+
 Features
 
 Batch Username Checking: Users can input a list of usernames to check their availability in bulk, saving time compared to manual checks.
+
 Real-Time Results: The application provides immediate feedback on the status of each username, indicating whether it is available or already taken.
+
 User-Friendly Interface: Built with a clean and intuitive web interface, making it accessible for users of all technical levels.
+
 Flask Framework: Leveraging Flask's robust capabilities for web development, ensuring a scalable and maintainable codebase.
+
 Waitress Deployment: Utilizes Waitress as the WSGI server for serving the application, ensuring reliability and performance.
+
 
 Technical Details
 
