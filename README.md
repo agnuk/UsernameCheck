@@ -28,29 +28,30 @@ To set up the project locally, follow these steps:
 
 Clone the Repository:
 
-bash
-"cd ~"
-"git clone https://github.com/agnuk/UsernameCheck"
+
+    cd ~
+    git clone https://github.com/agnuk/UsernameCheck
+
 I would rename the folder to flask-app   
-"mv UsernameCheck flask-app"
+
+    mv UsernameCheck flask-app
 
 Set Up a Virtual Environment:
 
-bash
-"python3 -m venv venv"
-"source venv/bin/activate  # On Windows use `venv\Scripts\activate`"
+
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 
 Install Dependencies:
 
-bash
-"pip install -r requirements.txt"
+    pip install -r requirements.txt
 
 Run the Application:
 
-bash
 
-"waitress-serve --host=127.0.0.1 --port=8080 app:app"
+
+    waitress-serve --host=127.0.0.1 --port=8080 app:app
 
 Access the Application:
 
@@ -63,35 +64,33 @@ Installing Nginx:
 
 Step 1: Install Nginx
 Update Package Index:
-bash
-"sudo apt update"
+
+    sudo apt update
 
 Install Nginx:
-bash
 
-"sudo apt install nginx"
+    sudo apt install nginx
 
 Check Nginx Status:
 
 After installation, ensure that Nginx is running:
 
-bash
 
-"sudo systemctl status nginx"
+    sudo systemctl status nginx
 
 Step 2: Configure Nginx as a Reverse Proxy
 
 Create an Nginx Server Block:
 Create a configuration file for your application:
-bash
 
-"sudo nano /etc/nginx/sites-available/myapp.conf"
+
+    sudo nano /etc/nginx/sites-available/myapp.conf
 
 Add the Following Configuration:
 
 Replace your_domain.com with your actual domain or IP address:
 
-text
+
 
     server {
         listen 80;
@@ -108,22 +107,22 @@ text
 
 Enable the Server Block:
 Create a symbolic link to enable the configuration:
-bash
-"sudo ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/"
+
+    sudo ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/
 
 Test the Nginx Configuration:
 
 Ensure there are no syntax errors in your configuration:
 bash
 
-"sudo nginx -t"
+    sudo nginx -t
 
 Restart Nginx:
 
 Apply the changes by restarting Nginx:
 bash
 
-"sudo systemctl restart nginx"
+    sudo systemctl restart nginx
 
 
 Now, lets make waitress running all the time:
@@ -135,26 +134,25 @@ Open a terminal on your server.
 Create a new service file for your Flask application. You can name it waitress.service:
 bash
 
-"sudo nano /etc/systemd/system/waitress.service"
+    sudo nano /etc/systemd/system/waitress.service
 
 Add the following configuration to the service file, adjusting paths and user as necessary:
 
-text
 
-[Unit]
-Description=Waitress Server for running Flask Application
-After=network.target
+    [Unit]
+    Description=Waitress Server for running Flask Application
+    After=network.target
 
-[Service]
-User=your_username          # Replace with your actual username (root in my case)
-Group=www-data              # You can change this if needed
-WorkingDirectory=/path/to/your/flask-app  # Adjust to your app's directory  (/root/flask-app)
-ExecStart=/path/to/your/venv/bin/waitress-serve --host=127.0.0.1 --port=8080 app:app  # Adjust the path to your virtual environment and app
-#(/root/flask-app/venv/bin/waitress-serve in my case)
-Restart=always               # Restart service if it crashes
+    [Service]
+    User=your_username          # Replace with your actual username (root in my case)
+    Group=www-data              # You can change this if needed
+    WorkingDirectory=/path/to/your/flask-app  # Adjust to your app's directory  (/root/flask-app)
+    ExecStart=/path/to/your/venv/bin/waitress-serve --host=127.0.0.1 --port=8080 app:app  # Adjust the path to your virtual environment and app
+    #(/root/flask-app/venv/bin/waitress-serve in my case)
+    Restart=always               # Restart service if it crashes
 
-[Install]
-WantedBy=multi-user.target
+    [Install]
+    WantedBy=multi-user.target
 
 
 
@@ -163,25 +161,24 @@ Step 2: Enable and Start the Service
 Reload systemd to recognize the new service:
 bash
 
-"sudo systemctl daemon-reload"
+    sudo systemctl daemon-reload
 
 Enable the service to start on boot:
 bash
 
-"sudo systemctl enable waitress.service"
+    sudo systemctl enable waitress.service
 
 Start the service immediately:
 bash
 
-"sudo systemctl start waitress.service"
+    sudo systemctl start waitress.service
 
 
 Step 3: Check the Status of Your Service
 To verify that your service is running correctly, use:
 
-bash
 
-"sudo systemctl status waitress.service"
+    sudo systemctl status waitress.service
 
 This command will show you whether the service is active and running.
 
@@ -190,7 +187,7 @@ Step 4: View Logs for Debugging (if necessary)
 If you encounter issues, you can check the logs for more information:
 bash
 
-"journalctl -u waitress.service -f"
+    journalctl -u waitress.service -f
 
 
 Usage
