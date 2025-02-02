@@ -93,9 +93,9 @@ Replace your_domain.com with your actual domain or IP address:
 
 text
 
-server {
-    listen 80;
-    server_name your_domain.com www.your_domain.com;
+    server {
+        listen 80;
+        server_name your_domain.com www.your_domain.com;
 
     location / {
         proxy_pass http://127.0.0.1:8080;  # Change port if needed for Waitress
