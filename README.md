@@ -4,7 +4,7 @@ The Mass Checking Telegram Usernames project is a web application developed usin
 
 The running version is availble at:
 
-Usernamecheck.ru
+https://usernamecheck.ru
 
 Features
 
